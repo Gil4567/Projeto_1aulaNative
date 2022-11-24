@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import { TextInput, View, Text, Button } from "react-native";
+import { TextInput, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import ResultImc from "./ResultImc/index";
+import styles from "./styles";
 
 export default function Form (){
 
@@ -29,15 +30,17 @@ export default function Form (){
         setMessageImc("Preencha o peso e altura")
     }
     return(
-        <View>
-            <View>
-                <Text>Altura</Text>
-                <TextInput onChangeText={setHeight} value={height} placeholder="Ex. 1.75"></TextInput>
-                <Text>Peso</Text>
-                <TextInput onChangeText={setWeight} value={weight} placeholder="Ex. 75.365"></TextInput>
+        <View style={styles.formContext}>
+            <ScrollView keyboardShouldPersistTaps='handled' style={styles.form}>
+                <Text style={styles.formLabel}>Altura</Text>
+                <TextInput style={styles.input} onChangeText={setHeight} value={height} placeholder="Ex. 1.75"></TextInput>
+                <Text style={styles.formLabel}>Peso</Text>
+                <TextInput style={styles.input} onChangeText={setWeight} value={weight} placeholder="Ex. 75.365"></TextInput>
 
-                <Button onPress={()=> validationImc()} title={textButton}/>
-            </View>
+                <TouchableOpacity style={styles.buttonCalculation} onPress={() => {validationImc()}}>
+                    <Text style={styles.textButtonCalculator}>{textButton}</Text>
+                </TouchableOpacity>
+            </ScrollView>
             <ResultImc messageResultImc={messageImc} resultImc={imc}/>
         </View>
     );
